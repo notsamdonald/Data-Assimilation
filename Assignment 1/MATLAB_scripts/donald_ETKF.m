@@ -1,0 +1,68 @@
+function [X_ens_array] = donald_ETKF(m, X_ens_a,X_obvs,X_ref, H, time_steps, n_states, n_ens, covar_localization, covar_inflation, L, plot)
+%UNTITLED7 Summary of this function goes here
+%   Detailed explanation goes here
+
+X_ens_array = zeros(n_states, n_ens, length(time_steps));
+X_ens_array(:,:,1) = X_ens_a;
+
+X_ens_b = X_ens_a;
+
+C_ens = 1/(sqrt(n_ens-1));
+R = 0.025.^2 * eye(20);% Define this above (observation errors)
+E_i = mvnrnd(zeros(20 ,1).', eye(20)*0.025^2, n_ens).';
+
+for t_id = 1:(length(time_steps)-1)
+    
+    x_mean_b = mean(X_ens_b, 2);
+    z_mean_b = mean(H*X_ens_b, 2);
+
+    X_dot_b = C_ens*(X_ens_b - x_mean_b);
+    Z_dot_b = C_ens*(H*X_ens_b - z_mean_b);  % (3.27)
+
+    % Get observations for current timestep
+    Y = X_obvs(:, t_id); % Rename X_obvs_ens -> Y_obvs_ens
+    
+    % Calculate Transform matrix
+    [U, D] = eig(Z_dot_b.' * inv(R) * Z_dot_b);  %(3.61) - inv is frowned upon
+    T = real(U) * (eye(n_ens) + real(D))^(-0.5) * real(U).';  % (3.62)
+
+    % Caclualte Kalman gain
+    K = X_dot_b * inv(eye(n_ens) + Z_dot_b.' * inv(R) * Z_dot_b) * Z_dot_b.' * inv(R);  %(3.51a)  - inv is frowned upon
+    K = X_dot_b * T * T.' * Z_dot_b.' * inv(R);  %(3.51a) %Aparently I can use T to calculate this? More than current?
+
+    % Update ensemble mean
+    x_mean_a = x_mean_b + K * (Y - z_mean_b);  %(3.51a)
+
+    if covar_localization
+        % Covarance localization
+        A = repmat(x_mean_a, [1,n_states]);
+        distance = A - A.';
+        L = 5;
+        rho = arrayfun(@gaspari_cohn, distance/L);
+        X_dot_b = rho.*X_dot_b;
+    end
+    
+    % Update the ensemble of scaled deviations
+    X_dot_a = X_dot_b * T;  % (3.62)
+
+    % Recreate the ensemble
+    X_ens_a = x_mean_a + C_ens.^-1 * X_dot_a;
+
+    % Move forward in time via model
+    for i = 1:n_ens
+        [~, x] = ode45(m.RHS.F, [time_steps(t_id) time_steps(t_id+1)], X_ens_a(:, i));
+        X_ens_b(:, i) = x(end, :).';  % New prior
+        X_ens_array(:,i,t_id+1) = X_ens_b(:, i);  % Save enemble of priors
+    end
+end
+disp('ETKF run complete')
+
+if plot
+    clf
+    figure;
+    %rank_histogram_plot(X_obvs,X_ens_array, time_steps); make this work
+    %with only a single observation
+    
+    figure;
+    rmse_plot(X_ref, X_ens_array, time_steps);
+end
