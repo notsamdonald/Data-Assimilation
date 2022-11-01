@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>User Guide</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-05-05"><meta name="DC.source" content="User_Guide.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>User Guide</h1><!--introduction--><p>
+  <div>
+      <img style="float: right" src="../MATLODE_LOGO.png" height="150px"></img>
+  </div>
+</p><p>
+Up: <a href="../index.html">MATLODE Toolbox</a>
+</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Methods</a></li><li><a href="#3">Forward Integrators</a></li><li><a href="#4">Tangent Linear Integrators</a></li><li><a href="#5">Adjoint Integrators</a></li><li><a href="#6">Contact Information</a></li><li><a href="#10">Major Modification History</a></li></ul></div><p>
+<table cellspacing="0" style="max-width:90%; min-width=80%">
+  <tr>
+    <th style="text-align: center; background-color:#D3D3D3">ODE Solver</th>
+    <th style="text-align: center; background-color:#D3D3D3">Example</th>
+    <th style="text-align: center; background-color:#D3D3D3">Problem Characteristics</th>
+    <th style="text-align: center; background-color:#D3D3D3">Forward Solution</th>
+    <th style="text-align: center; background-color:#D3D3D3">Tangent Linear Sensitivity</th>
+    <th style="text-align: center; background-color:#D3D3D3">Adjoint Sensitivity</th>
+    <th style="text-align: center; background-color:#D3D3D3">Method</th>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_ADJ/html/MATLODE_ERK_ADJ_Integrator.html">MATLODE_ERK_ADJ_Integrator</a></td>
+    <td><a href="MATLODE_Example_ERK_ADJ_Integrator.html">MATLODE_Example_ERK_ADJ_Integrator</a></td>
+    <td>Nonstiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2713</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_ADJ/html/MATLODE_RK_ADJ_Integrator.html">MATLODE_RK_ADJ_Integrator</a></td>
+    <td><a href="MATLODE_Example_RK_ADJ_Integrator.html">MATLODE_Example_RK_ADJ_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2713</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_ADJ/html/MATLODE_ROS_ADJ_Integrator.html">MATLODE_ROS_ADJ_Integrator</a></td>
+    <td><a href="MATLODE_Example_ROS_ADJ_Integrator.html">MATLODE_Example_ROS_ADJ_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2713</td>
+    <td>Rosenbrock</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_ADJ/html/MATLODE_SDIRK_ADJ_Integrator.html">MATLODE_SDIRK_ADJ_Integrator</a></td>
+    <td><a href="MATLODE_Example_SDIRK_ADJ_Integrator.html">MATLODE_Example_SDIRK_ADJ_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2713</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_FWD/html/MATLODE_ERK_FWD_Integrator.html">MATLODE_ERK_FWD_Integrator</a></td>
+    <td><a href="MATLODE_Example_ERK_FWD_Integrator.html">MATLODE_Example_ERK_FWD_Integrator</a></td>
+    <td>Nonstiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2717</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_FWD/html/MATLODE_RK_FWD_Integrator.html">MATLODE_RK_FWD_Integrator</a></td>
+    <td><a href="MATLODE_Example_RK_FWD_Integrator.html">MATLODE_Example_RK_FWD_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2717</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_FWD/html/MATLODE_ROS_FWD_Integrator.html">MATLODE_ROS_FWD_Integrator</a></td>
+    <td><a href="MATLODE_Example_ROS_FWD_Integrator.html">MATLODE_Example_ROS_FWD_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2717</td>
+    <td>Rosenbrock</td>
+  </tr>
+  <tr>
+    <td><a
+    href="../Driver/Driver_FWD/html/MATLODE_SDIRK_FWD_Integrator.html">MATLODE_SDIRK_FWD_Integrator</a></td>
+    <td><a href="MATLODE_Example_SDIRK_FWD_Integrator.html">MATLODE_Example_SDIRK_FWD_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>&#x2717</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_TLM/html/MATLODE_ERK_TLM_Integrator.html">MATLODE_ERK_TLM_Integrator</a></td>
+    <td><a href="MATLODE_Example_ERK_TLM_Integrator.html">MATLODE_Example_ERK_TLM_Integrator</a></td>
+    <td>Nonstiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_TLM/html/MATLODE_RK_TLM_Integrator.html">MATLODE_RK_TLM_Integrator</a></td>
+    <td><a href="MATLODE_Example_RK_TLM_Integrator.html">MATLODE_Example_RK_TLM_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>Runge-Kutta</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_TLM/html/MATLODE_ROS_TLM_Integrator.html">MATLODE_ROS_TLM_Integrator</a></td>
+    <td><a href="MATLODE_Example_ROS_TLM_Integrator.html">MATLODE_Example_ROS_TLM_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>Rosenbrock</td>
+  </tr>
+  <tr>
+    <td><a href="../Driver/Driver_TLM/html/MATLODE_SDIRK_TLM_Integrator.html">MATLODE_SDIRK_TLM_Integrator</a></td>
+    <td><a href="MATLODE_Example_SDIRK_TLM_Integrator.html">MATLODE_Example_SDIRK_TLM_Integrator</a></td>
+    <td>Stiff differential equations</td>
+    <td>&#x2713</td>
+    <td>&#x2713</td>
+    <td>&#x2717</td>
+    <td>Runge-Kutta</td>
+  </tr>
+</table>
+</p><h2>Methods<a name="2"></a></h2><p>
+<table cellspacing="50">
+  <tr>
+  <td style="border:none">
+  <h3>Method: Explicit Runge-Kutta (ERK)</h3>
+  <table cellspacing="0">
+  <tr>
+     <th style="text-align: center; background-color:#D3D3D3">Value</th>
+     <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+     <th style="text-align: center; background-color:#D3D3D3">Order</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+  </tr>
+  <tr>
+     <td>0 (default)</td>
+     <td>Dopri5</td>
+     <td>7</td>
+     <td>5</td>
+     <td>conditionally-stable</td>
+  </tr>
+  <tr>
+     <td>1</td>
+     <td>Erk23</td>
+     <td>3</td>
+     <td>2</td>
+     <td>conditionally-stable</td>
+  </tr>
+  <tr>
+     <td>2</td>
+     <td>Erk3 Heun</td>
+     <td>4</td>
+     <td>3</td>
+     <td>conditionally-stable</td>
+  </tr>
+  <tr>
+     <td>3</td>
+     <td>Erk43</td>
+     <td>5</td>
+     <td>4</td>
+     <td>conditionally-stable</td>
+  </tr>
+  <tr>
+     <td>4</td>
+     <td>Dopri5</td>
+     <td>7</td>
+     <td>5</td>
+     <td>conditionally-stable</td>
+  </tr>
+  <tr>
+     <td>5</td>
+     <td>Dopri853</td>
+     <td>12</td>
+     <td>8</td>
+     <td>conditionally-stable</td>
+  </tr>
+  </table>
+  </td>
+  <td style="border:none">
+  <h3>Method: Implicit Runge-Kutta (RK)</h3>
+  <table cellspacing="0">
+  <tr>
+     <th style="text-align: center; background-color:#D3D3D3">Value</th>
+     <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+     <th style="text-align: center; background-color:#D3D3D3">Order</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+  </tr>
+  <tr>
+     <td>0 (default)</td>
+     <td>Lobatto3C</td>
+     <td>3</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>1</td>
+     <td>Radua2A</td>
+     <td>3</td>
+     <td>5</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>2</td>
+     <td>Lobatto3C</td>
+     <td>3</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>3</td>
+     <td>Gauss</td>
+     <td>3</td>
+     <td>6</td>
+     <td>weakly L-stable</td>
+  </tr>
+  <tr>
+     <td>4</td>
+     <td>Radau1A</td>
+     <td>3</td>
+     <td>5</td>
+     <td>L-stable</td>
+  </tr>
+  </table>
+  </td>
+</tr>
+<tr>
+  <td style="border:none">
+  <h3>Method: Rosenbrock (ROS)</h3>
+  <table cellspacing="0">
+  <tr>
+     <th style="text-align: center; background-color:#D3D3D3">Value</th>
+     <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+     <th style="text-align: center; background-color:#D3D3D3">Order</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+  </tr>
+  <tr>
+     <td>0 (default)</td>
+     <td>Ros4</td>
+     <td>4</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>1</td>
+     <td>Ros2</td>
+     <td>2</td>
+     <td>2</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>2</td>
+     <td>Ros3</td>
+     <td>3</td>
+     <td>3</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>3</td>
+     <td>Ros4</td>
+     <td>4</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>4</td>
+     <td>Rodas3</td>
+     <td>4</td>
+     <td>3</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>5</td>
+     <td>Rodas4</td>
+     <td>6</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  </table>
+  </td>
+  <td style="border:none">
+  <h3>Method: Singly Diagonally Implicit Runge-Kutta (SDIRK)</h3>
+  <table cellspacing="0">
+  <tr>
+     <th style="text-align: center; background-color:#D3D3D3">Value</th>
+     <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+     <th style="text-align: center; background-color:#D3D3D3">Order</th>
+     <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+  </tr>
+  <tr>
+     <td>0 (default)</td>
+     <td>Sdirk4A</td>
+     <td>5</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>1</td>
+     <td>Sdrik2A</td>
+     <td>2</td>
+     <td>2</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>2</td>
+     <td>Sdirk2B</td>
+     <td>2</td>
+     <td>2</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>3</td>
+     <td>Sdirk3A</td>
+     <td>3</td>
+     <td>2</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>4</td>
+     <td>Sdirk4A</td>
+     <td>5</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  <tr>
+     <td>5</td>
+     <td>Sdirk4B</td>
+     <td>5</td>
+     <td>4</td>
+     <td>L-stable</td>
+  </tr>
+  </table>
+  </td>
+</tr>
+</table>
+<p>Return to <a href="User_Guide.html">Top</a></p>
+</p><h2>Forward Integrators<a name="3"></a></h2><p>
+  <h3> MATLODE_OPTIONS: Forward Integrator
+  <table cellspacing="0">
+     <tr>
+        <th style="text-align: center; background-color:#D3D3D3">Key</th>
+        <th style="text-align: center; background-color:#D3D3D3">Value</th>
+        <th style="text-align: center; background-color:#D3D3D3" >Description</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_ERK_FWD_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_RK_FWD_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_ROS_FWD_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_SDIRK_FWD_Integrator</th>
+     </tr>
+     <tr><td>AbsTol</td><td>double, double[]</td><td>Absolute error tolerance for Forward integrators</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>AbsTol_ADJ</td><td>double, double[]</td><td>Absolute Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>AbsTol_TLM</td><td>double, double[]</td><td>Absolute error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>ChunkSize</td><td>integer<td>Appended memory block size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DirectADJ</td><td>boolean<td>Determines whether direct adjoint sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>DirectTLM</td><td>boolean<td>Determines whether direct tangent linear sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>DisplayStats</td><td>boolean<td>Determines whether statistics are displayed</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DisplaySteps</td><td>boolean<td>Determines whether steps are displayedd</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DRDP</td><td>function handle<td>Derivitive of r w.r.t. parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>DRDY</td><td>function handle<td>Derivitive of r w.r.t. y vector</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>FacMax</td><td>double<td>Step size upper bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FacMin</td><td>double<td>Step size lower bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FacSafe</td><td>double<td>Factor by which the new step is slightly smaller than the predicted value</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FDAprox</td><td>boolean<td>Determines whether Jacobian vector products by finite difference is used</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Gustafsson</td><td>boolean<td>An alternative error controller approach which may be advantageous depending on the model characteristics</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hess_vec</td><td>function handle<td>H * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec</td><td>function handle<td>H^T * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec_f_py</td><td>function handle<td>(d(f_p^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec_r</td><td>function handle<td>(d(r_y^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec_r_py</td><td>function handle<td>(d(r_p^T *u)/dy) *k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hmax</td><td>double<td>Step size upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hmin</td><td>double<td>Step size lower bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hstart</td><td>double<td>Initial step size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>ITOL</td><td>boolean<td>Depreciated: Tolerances are scalor or vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Jacobian</td><td>function handle<td>User defined function: Jacobian</td><td>&#x2717</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Jacp</td><td>function handle<td>User defined function: df/dp </td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Lambda</td><td>double[]<td>Adjoint sensitivity matrix</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>MatrixFree</td><td>boolean<td>Determines whether Jacobian is approximated</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>Max_no_steps</td><td>integer<td>Maximum number of steps upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Method</td><td>integer<td>Determines which coefficients to use</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Mu</td><td>double[]<td>Mu vector for sensitivity analysis</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>NBasisVectors</td><td>integer<td>Number of basis vectors</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>NewtonMaxIt</td><td>integer<td>Maximum number of newton iterations performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>NewtonTol</td><td>double<td>Newton method stopping criterion</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>NP</td><td>integer<td>Number of parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>QFun</td><td>function handle<td>r function</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Qmax</td><td>double<td>Predicted step size to current step size upper bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Qmin</td><td>double<td>Predicted step size to current step size lower bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Quadrature</td><td>double[]<td>Initial Quadrature</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>RelTol</td><td>double, double[]<td>Relative error tolerance</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>RelTol_ADJ</td><td>double, double[]<td>Relative Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>RelTol_TLM</td><td>double, double[]<td>Relative error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>SaveLU</td><td>boolean<td>Determines whether to save during LU factorization</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>SdirkError</td><td>boolean<td>Alternative error criterionn</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>StartNewton</td><td>boolean<td>Determines whether newton iterations are performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>StoreCheckpoint</td><td>boolean<td>Determines whether intermediate values are stored</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>ThetaMin</td><td>double<td>Factor deciding whether the Jacobian should be recomputed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>TLMNewtonEst</td><td>boolean<td>Determines whether to user a tangent linear scaling factor in newton interation</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>TLMtruncErr</td><td>boolean<td>Determiens whether to incorpate sensitivity truncation error</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>WarningConfig</td><td>boolean<td>Determines whether warning messages are displayed during option configuration</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Y_TLM</td><td>double[]<td>Contains the sensitivities of Y with respect to the specified coefficients</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+  </table>
+<p>Return to <a href="User_Guide.html">Top</a></p>
+</p><h2>Tangent Linear Integrators<a name="4"></a></h2><p>
+  <h3> MATLODE_OPTIONS: Tangent Linear Integrator
+  <table cellspacing="0">
+     <tr>
+        <th style="text-align: center; background-color:#D3D3D3">Key</th>
+        <th style="text-align: center; background-color:#D3D3D3">Value</th>
+        <th style="text-align: center; background-color:#D3D3D3" >Description</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_ERK_TLM_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_RK_TLM_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_ROS_TLM_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_SDIRK_TLM_Integrator</th>
+     </tr>
+     <tr><td>AbsTol</td><td>double, double[]</td><td>Absolute error tolerance for Forward integrators</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>AbsTol_ADJ</td><td>double, double[]</td><td>Absolute Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>AbsTol_TLM</td><td>double, double[]</td><td>Absolute error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td></tr>
+     <tr><td>ChunkSize</td><td>integer<td>Appended memory block size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DirectADJ</td><td>boolean<td>Determines whether direct adjoint sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>DirectTLM</td><td>boolean<td>Determines whether direct tangent linear sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DisplayStats</td><td>boolean<td>Determines whether statistics are displayed</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DisplaySteps</td><td>boolean<td>Determines whether steps are displayedd</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DRDP</td><td>function handle<td>Derivitive of r w.r.t. parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>DRDY</td><td>function handle<td>Derivitive of r w.r.t. y vector</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>FacMax</td><td>double<td>Step size upper bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FacMin</td><td>double<td>Step size lower bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FacSafe</td><td>double<td>Factor by which the new step is slightly smaller than the predicted value</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FDAprox</td><td>boolean<td>Determines whether Jacobian vector products by finite difference is used</td><td>&#x2713</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Gustafsson</td><td>boolean<td>An alternative error controller approach which may be advantageous depending on the model characteristics</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hess_vec</td><td>function handle<td>H * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec</td><td>function handle<td>H^T * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec_f_py</td><td>function handle<td>(d(f_p^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec_r</td><td>function handle<td>(d(r_y^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hesstr_vec_r_py</td><td>function handle<td>(d(r_p^T *u)/dy) *k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hmax</td><td>double<td>Step size upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hmin</td><td>double<td>Step size lower bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hstart</td><td>double<td>Initial step size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>ITOL</td><td>boolean<td>Depreciated: Tolerances are scalor or vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Jacobian</td><td>function handle<td>User defined function: Jacobian</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Jacp</td><td>function handle<td>User defined function: df/dp </td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Lambda</td><td>double[]<td>Adjoint sensitivity matrix</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>MatrixFree</td><td>boolean<td>Determines whether Jacobian is approximated</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>Max_no_steps</td><td>integer<td>Maximum number of steps upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Method</td><td>integer<td>Determines which coefficients to use</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Mu</td><td>double[]<td>Mu vector for sensitivity analysis</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>NBasisVectors</td><td>integer<td>Number of basis vectors</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>NewtonMaxIt</td><td>integer<td>Maximum number of newton iterations performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>NewtonTol</td><td>double<td>Newton method stopping criterion</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>NP</td><td>integer<td>Number of parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>QFun</td><td>function handle<td>r function</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Qmax</td><td>double<td>Predicted step size to current step size upper bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Qmin</td><td>double<td>Predicted step size to current step size lower bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Quadrature</td><td>double[]<td>Initial Quadrature</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>RelTol</td><td>double, double[]<td>Relative error tolerance</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>RelTol_ADJ</td><td>double, double[]<td>Relative Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>RelTol_TLM</td><td>double, double[]<td>Relative error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td></tr>
+     <tr><td>SaveLU</td><td>boolean<td>Determines whether to save during LU factorization</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>SdirkError</td><td>boolean<td>Alternative error criterionn</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>StartNewton</td><td>boolean<td>Determines whether newton iterations are performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>StoreCheckpoint</td><td>boolean<td>Determines whether intermediate values are stored</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>ThetaMin</td><td>double<td>Factor deciding whether the Jacobian should be recomputed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>TLMNewtonEst</td><td>boolean<td>Determines whether to user a tangent linear scaling factor in newton interation</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>TLMtruncErr</td><td>boolean<td>Determiens whether to incorpate sensitivity truncation error</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>WarningConfig</td><td>boolean<td>Determines whether warning messages are displayed during option configuration</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Y_TLM</td><td>double[]<td>Contains the sensitivities of Y with respect to the specified coefficients</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+  </table>
+<p>Return to <a href="User_Guide.html">Top</a></p>
+</p><h2>Adjoint Integrators<a name="5"></a></h2><p>
+  <h3> MATLODE_OPTIONS: Adjoint Integrator
+  <table cellspacing="0">
+     <tr>
+        <th style="text-align: center; background-color:#D3D3D3">Key</th>
+        <th style="text-align: center; background-color:#D3D3D3">Value</th>
+        <th style="text-align: center; background-color:#D3D3D3" >Description</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_ERK_ADJ_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_RK_ADJ_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_ROS_ADJ_Integrator</th>
+        <th style="text-align: center; background-color:#D3D3D3">MATLODE_SDIRK_ADJ_Integrator</th>
+     </tr>
+     <tr><td>AbsTol</td><td>double, double[]</td><td>Absolute error tolerance for Forward integrators</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>AbsTol_ADJ</td><td>double, double[]</td><td>Absolute Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>AbsTol_TLM</td><td>double, double[]</td><td>Absolute error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>ChunkSize</td><td>integer<td>Appended memory block size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DirectADJ</td><td>boolean<td>Determines whether direct adjoint sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>DirectTLM</td><td>boolean<td>Determines whether direct tangent linear sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>DisplayStats</td><td>boolean<td>Determines whether statistics are displayed</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DisplaySteps</td><td>boolean<td>Determines whether steps are displayedd</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DRDP</td><td>function handle<td>Derivitive of r w.r.t. parameters</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>DRDY</td><td>function handle<td>Derivitive of r w.r.t. y vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FacMax</td><td>double<td>Step size upper bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FacMin</td><td>double<td>Step size lower bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FacSafe</td><td>double<td>Factor by which the new step is slightly smaller than the predicted value</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>FDAprox</td><td>boolean<td>Determines whether Jacobian vector products by finite difference is used</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Gustafsson</td><td>boolean<td>An alternative error controller approach which may be advantageous depending on the model characteristics</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>Hess_vec</td><td>function handle<td>H * v</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hesstr_vec</td><td>function handle<td>H^T * v</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hesstr_vec_f_py</td><td>function handle<td>(d(f_p^T * u)/dy) * k</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hesstr_vec_r</td><td>function handle<td>(d(r_y^T * u)/dy) * k</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hesstr_vec_r_py</td><td>function handle<td>(d(r_p^T *u)/dy) *k</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hmax</td><td>double<td>Step size upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hmin</td><td>double<td>Step size lower bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Hstart</td><td>double<td>Initial step size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>ITOL</td><td>boolean<td>Depreciated: Tolerances are scalor or vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Jacobian</td><td>function handle<td>User defined function: Jacobian</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Jacp</td><td>function handle<td>User defined function: df/dp </td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Lambda</td><td>double[]<td>Adjoint sensitivity matrix</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>MatrixFree</td><td>boolean<td>Determines whether Jacobian is approximated</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>Max_no_steps</td><td>integer<td>Maximum number of steps upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Method</td><td>integer<td>Determines which coefficients to use</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Mu</td><td>double[]<td>Mu vector for sensitivity analysis</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>NBasisVectors</td><td>integer<td>Number of basis vectors</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>NewtonMaxIt</td><td>integer<td>Maximum number of newton iterations performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>NewtonTol</td><td>double<td>Newton method stopping criterion</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>NP</td><td>integer<td>Number of parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>QFun</td><td>function handle<td>r function</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Qmax</td><td>double<td>Predicted step size to current step size upper bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Qmin</td><td>double<td>Predicted step size to current step size lower bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Quadrature</td><td>double[]<td>Initial Quadrature</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>RelTol</td><td>double, double[]<td>Relative error tolerance</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>RelTol_ADJ</td><td>double, double[]<td>Relative Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>RelTol_TLM</td><td>double, double[]<td>Relative error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>SaveLU</td><td>boolean<td>Determines whether to save during LU factorization</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>SdirkError</td><td>boolean<td>Alternative error criterionn</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>StartNewton</td><td>boolean<td>Determines whether newton iterations are performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+     <tr><td>StoreCheckpoint</td><td>boolean<td>Determines whether intermediate values are stored</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>ThetaMin</td><td>double<td>Factor deciding whether the Jacobian should be recomputed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>TLMNewtonEst</td><td>boolean<td>Determines whether to user a tangent linear scaling factor in newton interation</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>TLMtruncErr</td><td>boolean<td>Determiens whether to incorpate sensitivity truncation error</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+     <tr><td>WarningConfig</td><td>boolean<td>Determines whether warning messages are displayed during option configuration</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+     <tr><td>Y_TLM</td><td>double[]<td>Contains the sensitivities of Y with respect to the specified coefficients</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+  </table>
+<p>Return to <a href="User_Guide.html">Top</a></p>
+</p><h2>Contact Information<a name="6"></a></h2><p>Dr. Adrian Sandu                 | Phone: (540) 231-2193 | Email: <a href="mailto:sandu@cs.vt.edu">sandu@cs.vt.edu</a></p><p>Tony D'Augustine                 | Phone: (540) 231-6186 | Email: <a href="mailto:adaug13@vt.edu">adaug13@vt.edu</a></p><p>Computational Science Laboratory | Phone: (540) 231-6186</p><h2>Major Modification History<a name="10"></a></h2><p>
+<table border=1>
+  <tr>
+      <td><b>Date</b></td>
+      <td>Developer</td>
+      <td>Email</td>
+      <td>Action</td>
+  </tr>
+  <tr>
+      <td>1/1/2014</td>
+      <td>Tony D'Augustine</td>
+      <td>adaug13@vt,edu</td>
+      <td>Release MATLODE_v2.0.00</td>
+  </tr>
+</table>
+</p><p>
+  <div>
+      <img style="float: right" src="../CSL_LogoWithName_1.png" height="50px"></img>
+  </div>
+</p><p>Copyright 2015 Computational Science Laboratory</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% User Guide
+%
+% <html>
+%   <div>
+%       <img style="float: right" src="../MATLODE_LOGO.png" height="150px"></img>
+%   </div>
+% </html>
+%
+% <html>
+% Up: <a href="../index.html">MATLODE Toolbox</a>
+% </html>
+%
+%%
+% <html>
+% <table cellspacing="0" style="max-width:90%; min-width=80%">
+%   <tr>
+%     <th style="text-align: center; background-color:#D3D3D3">ODE Solver</th>
+%     <th style="text-align: center; background-color:#D3D3D3">Example</th>
+%     <th style="text-align: center; background-color:#D3D3D3">Problem Characteristics</th>
+%     <th style="text-align: center; background-color:#D3D3D3">Forward Solution</th>
+%     <th style="text-align: center; background-color:#D3D3D3">Tangent Linear Sensitivity</th>
+%     <th style="text-align: center; background-color:#D3D3D3">Adjoint Sensitivity</th>
+%     <th style="text-align: center; background-color:#D3D3D3">Method</th>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_ADJ/html/MATLODE_ERK_ADJ_Integrator.html">MATLODE_ERK_ADJ_Integrator</a></td>
+%     <td><a href="MATLODE_Example_ERK_ADJ_Integrator.html">MATLODE_Example_ERK_ADJ_Integrator</a></td>
+%     <td>Nonstiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2713</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_ADJ/html/MATLODE_RK_ADJ_Integrator.html">MATLODE_RK_ADJ_Integrator</a></td>
+%     <td><a href="MATLODE_Example_RK_ADJ_Integrator.html">MATLODE_Example_RK_ADJ_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2713</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_ADJ/html/MATLODE_ROS_ADJ_Integrator.html">MATLODE_ROS_ADJ_Integrator</a></td>
+%     <td><a href="MATLODE_Example_ROS_ADJ_Integrator.html">MATLODE_Example_ROS_ADJ_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2713</td>
+%     <td>Rosenbrock</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_ADJ/html/MATLODE_SDIRK_ADJ_Integrator.html">MATLODE_SDIRK_ADJ_Integrator</a></td>
+%     <td><a href="MATLODE_Example_SDIRK_ADJ_Integrator.html">MATLODE_Example_SDIRK_ADJ_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2713</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_FWD/html/MATLODE_ERK_FWD_Integrator.html">MATLODE_ERK_FWD_Integrator</a></td>
+%     <td><a href="MATLODE_Example_ERK_FWD_Integrator.html">MATLODE_Example_ERK_FWD_Integrator</a></td>
+%     <td>Nonstiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2717</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_FWD/html/MATLODE_RK_FWD_Integrator.html">MATLODE_RK_FWD_Integrator</a></td>
+%     <td><a href="MATLODE_Example_RK_FWD_Integrator.html">MATLODE_Example_RK_FWD_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2717</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_FWD/html/MATLODE_ROS_FWD_Integrator.html">MATLODE_ROS_FWD_Integrator</a></td>
+%     <td><a href="MATLODE_Example_ROS_FWD_Integrator.html">MATLODE_Example_ROS_FWD_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2717</td>
+%     <td>Rosenbrock</td>
+%   </tr>
+%   <tr>
+%     <td><a
+%     href="../Driver/Driver_FWD/html/MATLODE_SDIRK_FWD_Integrator.html">MATLODE_SDIRK_FWD_Integrator</a></td>
+%     <td><a href="MATLODE_Example_SDIRK_FWD_Integrator.html">MATLODE_Example_SDIRK_FWD_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>&#x2717</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_TLM/html/MATLODE_ERK_TLM_Integrator.html">MATLODE_ERK_TLM_Integrator</a></td>
+%     <td><a href="MATLODE_Example_ERK_TLM_Integrator.html">MATLODE_Example_ERK_TLM_Integrator</a></td>
+%     <td>Nonstiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_TLM/html/MATLODE_RK_TLM_Integrator.html">MATLODE_RK_TLM_Integrator</a></td>
+%     <td><a href="MATLODE_Example_RK_TLM_Integrator.html">MATLODE_Example_RK_TLM_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_TLM/html/MATLODE_ROS_TLM_Integrator.html">MATLODE_ROS_TLM_Integrator</a></td>
+%     <td><a href="MATLODE_Example_ROS_TLM_Integrator.html">MATLODE_Example_ROS_TLM_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>Rosenbrock</td>
+%   </tr>
+%   <tr>
+%     <td><a href="../Driver/Driver_TLM/html/MATLODE_SDIRK_TLM_Integrator.html">MATLODE_SDIRK_TLM_Integrator</a></td>
+%     <td><a href="MATLODE_Example_SDIRK_TLM_Integrator.html">MATLODE_Example_SDIRK_TLM_Integrator</a></td>
+%     <td>Stiff differential equations</td>
+%     <td>&#x2713</td>
+%     <td>&#x2713</td>
+%     <td>&#x2717</td>
+%     <td>Runge-Kutta</td>
+%   </tr>
+% </table> 
+% </html>
+%
+%% Methods
+% <html>
+% <table cellspacing="50">
+%   <tr>
+%   <td style="border:none">
+%   <h3>Method: Explicit Runge-Kutta (ERK)</h3>
+%   <table cellspacing="0">
+%   <tr>
+%      <th style="text-align: center; background-color:#D3D3D3">Value</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Order</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+%   </tr>
+%   <tr>
+%      <td>0 (default)</td>
+%      <td>Dopri5</td>
+%      <td>7</td>
+%      <td>5</td>
+%      <td>conditionally-stable</td>
+%   </tr>
+%   <tr>
+%      <td>1</td>
+%      <td>Erk23</td>
+%      <td>3</td>
+%      <td>2</td>
+%      <td>conditionally-stable</td>
+%   </tr>
+%   <tr>
+%      <td>2</td>
+%      <td>Erk3 Heun</td>
+%      <td>4</td>
+%      <td>3</td>
+%      <td>conditionally-stable</td>
+%   </tr>
+%   <tr>
+%      <td>3</td>
+%      <td>Erk43</td>
+%      <td>5</td>
+%      <td>4</td>
+%      <td>conditionally-stable</td>
+%   </tr>
+%   <tr>
+%      <td>4</td>
+%      <td>Dopri5</td>
+%      <td>7</td>
+%      <td>5</td>
+%      <td>conditionally-stable</td>
+%   </tr>
+%   <tr>
+%      <td>5</td>
+%      <td>Dopri853</td>
+%      <td>12</td>
+%      <td>8</td>
+%      <td>conditionally-stable</td>
+%   </tr>
+%   </table>
+%   </td>
+%   <td style="border:none">
+%   <h3>Method: Implicit Runge-Kutta (RK)</h3>
+%   <table cellspacing="0">
+%   <tr>
+%      <th style="text-align: center; background-color:#D3D3D3">Value</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Order</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+%   </tr>
+%   <tr>
+%      <td>0 (default)</td>
+%      <td>Lobatto3C</td>
+%      <td>3</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>1</td>
+%      <td>Radua2A</td>
+%      <td>3</td>
+%      <td>5</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>2</td>
+%      <td>Lobatto3C</td>
+%      <td>3</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>3</td>
+%      <td>Gauss</td>
+%      <td>3</td>
+%      <td>6</td>
+%      <td>weakly L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>4</td>
+%      <td>Radau1A</td>
+%      <td>3</td>
+%      <td>5</td>
+%      <td>L-stable</td>
+%   </tr>
+%   </table>
+%   </td>
+% </tr>
+% <tr>
+%   <td style="border:none">
+%   <h3>Method: Rosenbrock (ROS)</h3>
+%   <table cellspacing="0">
+%   <tr>
+%      <th style="text-align: center; background-color:#D3D3D3">Value</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Order</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+%   </tr>
+%   <tr>
+%      <td>0 (default)</td>
+%      <td>Ros4</td>
+%      <td>4</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>1</td>
+%      <td>Ros2</td>
+%      <td>2</td>
+%      <td>2</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>2</td>
+%      <td>Ros3</td>
+%      <td>3</td>
+%      <td>3</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>3</td>
+%      <td>Ros4</td>
+%      <td>4</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>4</td>
+%      <td>Rodas3</td>
+%      <td>4</td>
+%      <td>3</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>5</td>
+%      <td>Rodas4</td>
+%      <td>6</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   </table>
+%   </td>
+%   <td style="border:none">
+%   <h3>Method: Singly Diagonally Implicit Runge-Kutta (SDIRK)</h3>
+%   <table cellspacing="0">
+%   <tr>
+%      <th style="text-align: center; background-color:#D3D3D3">Value</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Configuration</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stages</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Order</th>
+%      <th style="text-align: center; background-color:#D3D3D3">Stability Properties</th>
+%   </tr>
+%   <tr>
+%      <td>0 (default)</td>
+%      <td>Sdirk4A</td>
+%      <td>5</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>1</td>
+%      <td>Sdrik2A</td>
+%      <td>2</td>
+%      <td>2</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>2</td>
+%      <td>Sdirk2B</td>
+%      <td>2</td>
+%      <td>2</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>3</td>
+%      <td>Sdirk3A</td>
+%      <td>3</td>
+%      <td>2</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>4</td>
+%      <td>Sdirk4A</td>
+%      <td>5</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   <tr>
+%      <td>5</td>
+%      <td>Sdirk4B</td>
+%      <td>5</td>
+%      <td>4</td>
+%      <td>L-stable</td>
+%   </tr>
+%   </table>
+%   </td>
+% </tr>
+% </table>
+% <p>Return to <a href="User_Guide.html">Top</a></p>
+% </html>
+%% Forward Integrators
+% <html>
+%   <h3> MATLODE_OPTIONS: Forward Integrator
+%   <table cellspacing="0">
+%      <tr>
+%         <th style="text-align: center; background-color:#D3D3D3">Key</th>
+%         <th style="text-align: center; background-color:#D3D3D3">Value</th>
+%         <th style="text-align: center; background-color:#D3D3D3" >Description</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_ERK_FWD_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_RK_FWD_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_ROS_FWD_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_SDIRK_FWD_Integrator</th>
+%      </tr>
+%      <tr><td>AbsTol</td><td>double, double[]</td><td>Absolute error tolerance for Forward integrators</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>AbsTol_ADJ</td><td>double, double[]</td><td>Absolute Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>AbsTol_TLM</td><td>double, double[]</td><td>Absolute error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>ChunkSize</td><td>integer<td>Appended memory block size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DirectADJ</td><td>boolean<td>Determines whether direct adjoint sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>DirectTLM</td><td>boolean<td>Determines whether direct tangent linear sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>DisplayStats</td><td>boolean<td>Determines whether statistics are displayed</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DisplaySteps</td><td>boolean<td>Determines whether steps are displayedd</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DRDP</td><td>function handle<td>Derivitive of r w.r.t. parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>DRDY</td><td>function handle<td>Derivitive of r w.r.t. y vector</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>FacMax</td><td>double<td>Step size upper bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FacMin</td><td>double<td>Step size lower bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FacSafe</td><td>double<td>Factor by which the new step is slightly smaller than the predicted value</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FDAprox</td><td>boolean<td>Determines whether Jacobian vector products by finite difference is used</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Gustafsson</td><td>boolean<td>An alternative error controller approach which may be advantageous depending on the model characteristics</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hess_vec</td><td>function handle<td>H * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec</td><td>function handle<td>H^T * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec_f_py</td><td>function handle<td>(d(f_p^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec_r</td><td>function handle<td>(d(r_y^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec_r_py</td><td>function handle<td>(d(r_p^T *u)/dy) *k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hmax</td><td>double<td>Step size upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hmin</td><td>double<td>Step size lower bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hstart</td><td>double<td>Initial step size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>ITOL</td><td>boolean<td>Depreciated: Tolerances are scalor or vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Jacobian</td><td>function handle<td>User defined function: Jacobian</td><td>&#x2717</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Jacp</td><td>function handle<td>User defined function: df/dp </td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Lambda</td><td>double[]<td>Adjoint sensitivity matrix</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>MatrixFree</td><td>boolean<td>Determines whether Jacobian is approximated</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>Max_no_steps</td><td>integer<td>Maximum number of steps upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Method</td><td>integer<td>Determines which coefficients to use</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Mu</td><td>double[]<td>Mu vector for sensitivity analysis</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>NBasisVectors</td><td>integer<td>Number of basis vectors</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>NewtonMaxIt</td><td>integer<td>Maximum number of newton iterations performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>NewtonTol</td><td>double<td>Newton method stopping criterion</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>NP</td><td>integer<td>Number of parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>QFun</td><td>function handle<td>r function</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Qmax</td><td>double<td>Predicted step size to current step size upper bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Qmin</td><td>double<td>Predicted step size to current step size lower bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Quadrature</td><td>double[]<td>Initial Quadrature</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>RelTol</td><td>double, double[]<td>Relative error tolerance</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>RelTol_ADJ</td><td>double, double[]<td>Relative Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>RelTol_TLM</td><td>double, double[]<td>Relative error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>SaveLU</td><td>boolean<td>Determines whether to save during LU factorization</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>SdirkError</td><td>boolean<td>Alternative error criterionn</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>StartNewton</td><td>boolean<td>Determines whether newton iterations are performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>StoreCheckpoint</td><td>boolean<td>Determines whether intermediate values are stored</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>ThetaMin</td><td>double<td>Factor deciding whether the Jacobian should be recomputed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>TLMNewtonEst</td><td>boolean<td>Determines whether to user a tangent linear scaling factor in newton interation</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>TLMtruncErr</td><td>boolean<td>Determiens whether to incorpate sensitivity truncation error</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>WarningConfig</td><td>boolean<td>Determines whether warning messages are displayed during option configuration</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Y_TLM</td><td>double[]<td>Contains the sensitivities of Y with respect to the specified coefficients</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%   </table>
+% <p>Return to <a href="User_Guide.html">Top</a></p>
+% </html>
+%
+%% Tangent Linear Integrators
+% <html>
+%   <h3> MATLODE_OPTIONS: Tangent Linear Integrator
+%   <table cellspacing="0">
+%      <tr>
+%         <th style="text-align: center; background-color:#D3D3D3">Key</th>
+%         <th style="text-align: center; background-color:#D3D3D3">Value</th>
+%         <th style="text-align: center; background-color:#D3D3D3" >Description</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_ERK_TLM_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_RK_TLM_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_ROS_TLM_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_SDIRK_TLM_Integrator</th>
+%      </tr>
+%      <tr><td>AbsTol</td><td>double, double[]</td><td>Absolute error tolerance for Forward integrators</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>AbsTol_ADJ</td><td>double, double[]</td><td>Absolute Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>AbsTol_TLM</td><td>double, double[]</td><td>Absolute error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td></tr>
+%      <tr><td>ChunkSize</td><td>integer<td>Appended memory block size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DirectADJ</td><td>boolean<td>Determines whether direct adjoint sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>DirectTLM</td><td>boolean<td>Determines whether direct tangent linear sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DisplayStats</td><td>boolean<td>Determines whether statistics are displayed</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DisplaySteps</td><td>boolean<td>Determines whether steps are displayedd</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DRDP</td><td>function handle<td>Derivitive of r w.r.t. parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>DRDY</td><td>function handle<td>Derivitive of r w.r.t. y vector</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>FacMax</td><td>double<td>Step size upper bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FacMin</td><td>double<td>Step size lower bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FacSafe</td><td>double<td>Factor by which the new step is slightly smaller than the predicted value</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FDAprox</td><td>boolean<td>Determines whether Jacobian vector products by finite difference is used</td><td>&#x2713</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Gustafsson</td><td>boolean<td>An alternative error controller approach which may be advantageous depending on the model characteristics</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hess_vec</td><td>function handle<td>H * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec</td><td>function handle<td>H^T * v</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec_f_py</td><td>function handle<td>(d(f_p^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec_r</td><td>function handle<td>(d(r_y^T * u)/dy) * k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hesstr_vec_r_py</td><td>function handle<td>(d(r_p^T *u)/dy) *k</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hmax</td><td>double<td>Step size upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hmin</td><td>double<td>Step size lower bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hstart</td><td>double<td>Initial step size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>ITOL</td><td>boolean<td>Depreciated: Tolerances are scalor or vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Jacobian</td><td>function handle<td>User defined function: Jacobian</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Jacp</td><td>function handle<td>User defined function: df/dp </td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Lambda</td><td>double[]<td>Adjoint sensitivity matrix</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>MatrixFree</td><td>boolean<td>Determines whether Jacobian is approximated</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>Max_no_steps</td><td>integer<td>Maximum number of steps upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Method</td><td>integer<td>Determines which coefficients to use</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Mu</td><td>double[]<td>Mu vector for sensitivity analysis</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>NBasisVectors</td><td>integer<td>Number of basis vectors</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>NewtonMaxIt</td><td>integer<td>Maximum number of newton iterations performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>NewtonTol</td><td>double<td>Newton method stopping criterion</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>NP</td><td>integer<td>Number of parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>QFun</td><td>function handle<td>r function</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Qmax</td><td>double<td>Predicted step size to current step size upper bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Qmin</td><td>double<td>Predicted step size to current step size lower bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Quadrature</td><td>double[]<td>Initial Quadrature</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>RelTol</td><td>double, double[]<td>Relative error tolerance</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>RelTol_ADJ</td><td>double, double[]<td>Relative Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>RelTol_TLM</td><td>double, double[]<td>Relative error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td></tr>
+%      <tr><td>SaveLU</td><td>boolean<td>Determines whether to save during LU factorization</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>SdirkError</td><td>boolean<td>Alternative error criterionn</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>StartNewton</td><td>boolean<td>Determines whether newton iterations are performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>StoreCheckpoint</td><td>boolean<td>Determines whether intermediate values are stored</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>ThetaMin</td><td>double<td>Factor deciding whether the Jacobian should be recomputed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>TLMNewtonEst</td><td>boolean<td>Determines whether to user a tangent linear scaling factor in newton interation</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>TLMtruncErr</td><td>boolean<td>Determiens whether to incorpate sensitivity truncation error</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>WarningConfig</td><td>boolean<td>Determines whether warning messages are displayed during option configuration</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Y_TLM</td><td>double[]<td>Contains the sensitivities of Y with respect to the specified coefficients</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%   </table>
+% <p>Return to <a href="User_Guide.html">Top</a></p>
+% </html>
+%
+%% Adjoint Integrators
+% <html>
+%   <h3> MATLODE_OPTIONS: Adjoint Integrator
+%   <table cellspacing="0">
+%      <tr>
+%         <th style="text-align: center; background-color:#D3D3D3">Key</th>
+%         <th style="text-align: center; background-color:#D3D3D3">Value</th>
+%         <th style="text-align: center; background-color:#D3D3D3" >Description</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_ERK_ADJ_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_RK_ADJ_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_ROS_ADJ_Integrator</th>
+%         <th style="text-align: center; background-color:#D3D3D3">MATLODE_SDIRK_ADJ_Integrator</th>
+%      </tr>
+%      <tr><td>AbsTol</td><td>double, double[]</td><td>Absolute error tolerance for Forward integrators</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>AbsTol_ADJ</td><td>double, double[]</td><td>Absolute Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>AbsTol_TLM</td><td>double, double[]</td><td>Absolute error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>ChunkSize</td><td>integer<td>Appended memory block size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DirectADJ</td><td>boolean<td>Determines whether direct adjoint sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>DirectTLM</td><td>boolean<td>Determines whether direct tangent linear sensitivity analysis is performed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>DisplayStats</td><td>boolean<td>Determines whether statistics are displayed</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DisplaySteps</td><td>boolean<td>Determines whether steps are displayedd</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DRDP</td><td>function handle<td>Derivitive of r w.r.t. parameters</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>DRDY</td><td>function handle<td>Derivitive of r w.r.t. y vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FacMax</td><td>double<td>Step size upper bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FacMin</td><td>double<td>Step size lower bound change ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FacSafe</td><td>double<td>Factor by which the new step is slightly smaller than the predicted value</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>FDAprox</td><td>boolean<td>Determines whether Jacobian vector products by finite difference is used</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Gustafsson</td><td>boolean<td>An alternative error controller approach which may be advantageous depending on the model characteristics</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>Hess_vec</td><td>function handle<td>H * v</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hesstr_vec</td><td>function handle<td>H^T * v</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hesstr_vec_f_py</td><td>function handle<td>(d(f_p^T * u)/dy) * k</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hesstr_vec_r</td><td>function handle<td>(d(r_y^T * u)/dy) * k</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hesstr_vec_r_py</td><td>function handle<td>(d(r_p^T *u)/dy) *k</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hmax</td><td>double<td>Step size upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hmin</td><td>double<td>Step size lower bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Hstart</td><td>double<td>Initial step size</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>ITOL</td><td>boolean<td>Depreciated: Tolerances are scalor or vector</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Jacobian</td><td>function handle<td>User defined function: Jacobian</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Jacp</td><td>function handle<td>User defined function: df/dp </td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Lambda</td><td>double[]<td>Adjoint sensitivity matrix</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>MatrixFree</td><td>boolean<td>Determines whether Jacobian is approximated</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>Max_no_steps</td><td>integer<td>Maximum number of steps upper bound</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Method</td><td>integer<td>Determines which coefficients to use</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Mu</td><td>double[]<td>Mu vector for sensitivity analysis</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>NBasisVectors</td><td>integer<td>Number of basis vectors</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>NewtonMaxIt</td><td>integer<td>Maximum number of newton iterations performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>NewtonTol</td><td>double<td>Newton method stopping criterion</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>NP</td><td>integer<td>Number of parameters</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>QFun</td><td>function handle<td>r function</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Qmax</td><td>double<td>Predicted step size to current step size upper bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Qmin</td><td>double<td>Predicted step size to current step size lower bound ratio</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Quadrature</td><td>double[]<td>Initial Quadrature</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>RelTol</td><td>double, double[]<td>Relative error tolerance</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>RelTol_ADJ</td><td>double, double[]<td>Relative Newton iteration tolerance for solving adjoint system</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>RelTol_TLM</td><td>double, double[]<td>Relative error estimation for TLM at Newton stages</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>SaveLU</td><td>boolean<td>Determines whether to save during LU factorization</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>SdirkError</td><td>boolean<td>Alternative error criterionn</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>StartNewton</td><td>boolean<td>Determines whether newton iterations are performed</td><td>&#x2717</td><td>&#x2713</td><td>&#x2717</td><td>&#x2713</td></tr>
+%      <tr><td>StoreCheckpoint</td><td>boolean<td>Determines whether intermediate values are stored</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>ThetaMin</td><td>double<td>Factor deciding whether the Jacobian should be recomputed</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>TLMNewtonEst</td><td>boolean<td>Determines whether to user a tangent linear scaling factor in newton interation</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>TLMtruncErr</td><td>boolean<td>Determiens whether to incorpate sensitivity truncation error</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%      <tr><td>WarningConfig</td><td>boolean<td>Determines whether warning messages are displayed during option configuration</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td><td>&#x2713</td></tr>
+%      <tr><td>Y_TLM</td><td>double[]<td>Contains the sensitivities of Y with respect to the specified coefficients</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td><td>&#x2717</td></tr>
+%   </table>
+% <p>Return to <a href="User_Guide.html">Top</a></p>
+% </html>
+%
+
+%% Contact Information
+%%
+% Dr. Adrian Sandu                 | Phone: (540) 231-2193 | Email: sandu@cs.vt.edu
+%%
+% Tony D'Augustine                 | Phone: (540) 231-6186 | Email: adaug13@vt.edu 
+%%
+% Computational Science Laboratory | Phone: (540) 231-6186
+
+%% Major Modification History
+% <html>
+% <table border=1>
+%   <tr>
+%       <td><b>Date</b></td>
+%       <td>Developer</td>
+%       <td>Email</td>
+%       <td>Action</td>
+%   </tr>
+%   <tr>
+%       <td>1/1/2014</td>
+%       <td>Tony D'Augustine</td>
+%       <td>adaug13@vt,edu</td>
+%       <td>Release MATLODE_v2.0.00</td>
+%   </tr>
+% </table>
+% </html>
+%
+%%
+% <html>
+%   <div>
+%       <img style="float: right" src="../CSL_LogoWithName_1.png" height="50px"></img>
+%   </div>
+% </html>
+%
+%%
+% Copyright 2015 Computational Science Laboratory
+
+##### SOURCE END #####
+--></body></html>
