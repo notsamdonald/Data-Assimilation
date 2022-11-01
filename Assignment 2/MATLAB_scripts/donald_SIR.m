@@ -14,31 +14,37 @@ w = (ones(1,n_ens)/n_ens)
 % Initalizing array of ensemble members over time
 X_ens_array_b = zeros(n_states, n_ens, length(time_steps));
 X_ens_array_a = zeros(n_states, n_ens, length(time_steps));
-
+X_prediction = zeros(n_states, length(time_steps))
 
 for t_id = 1:(length(time_steps))
     
-        
+    %% Compute estimated state
+    xhk = zeros(n_states,1);
+    for i = 1:n_ens;
+       xhk = xhk + w(i)*X_ens_b(:,i);
+    end
+    X_prediction(:,t_id) = xhk;
+
     % Get observations from prior trajectory with observation errors added
     Y_t = squeeze(X_obvs_ens(:,t_id,:)); 
 
 
     % Caclulate difference factor and update
-    d =  (Y_t - H * X_ens_b);    
-    
+    d =  0.1 * (Y_t - H * X_ens_b);    
+
     % Calculate P(yk|xk)
     prob_placeholder = mvnpdf(d.',0, obvs_sigma*eye(20)).';
     
     % Rescale weights
     w = prob_placeholder .* w;
     w = w./sum(w);
-
+    
     % Calculate number of effective particles
-    n_eff = 1/sum(w.^2);
+    n_eff = 1/sum(w.^2)
 
     % Resample if effective particles is below threshold
     % TODO (tune this value)
-    resample_threshold = 5;
+    resample_threshold = 50;
     if n_eff < resample_threshold
 
         disp("Reampling!")
@@ -71,8 +77,11 @@ for t_id = 1:(length(time_steps))
 
         end
         % Adding noise such that it is stochastic
-        X_ens_b = X_ens_b + normrnd(0,0.0025,size(X_ens_b));
+        X_ens_b = X_ens_b + normrnd(0,0.00025,size(X_ens_b));
     end
+
+    
+
 
 end
 
@@ -81,9 +90,9 @@ disp('EnKF run complete')
 % Generating plots
 if plot
     clf
-    figure;
-    rank_histogram_plot(X_obvs_ens,X_ens_array_b, time_steps, title_info);
+    %figure;
+    %rank_histogram_plot(X_obvs_ens,X_ens_array_b, time_steps, title_info);
    
     figure;
-    rmse_plot(X_ref, X_ens_array_a, X_ens_array_b, time_steps, title_info);
+    rmse_plot(X_ref, X_ens_array_a, X_ens_array_b,X_prediction, time_steps, title_info);
 end
