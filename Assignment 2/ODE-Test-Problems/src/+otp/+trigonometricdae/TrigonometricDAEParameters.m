@@ -1,4 +1,0 @@
-classdef TrigonometricDAEParameters
-    %TRIGONOMETRICDAEPARAMETERS
-end
-

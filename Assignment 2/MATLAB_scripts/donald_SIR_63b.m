@@ -1,12 +1,14 @@
-function [X_ens_array_b] = donald_SIR(m, X_ens_b, X_obvs_ens, X_ref, H, time_steps, n_states, n_ens, plot)
+function [X_prediction] = donald_SIR_63b(m, X_ens_b, X_obvs_ens, X_ref, H, time_steps, n_states, n_ens, plot)
 % EnKF with option covariance localization/inflation
 % Able to generate RMSE/Rank histograms based on resultant analysis
 % ensemble
 
+% Redo using the method of weight updates in the ntoes
+
 % Used for plotting
 title_info = "SIR";
 
-obvs_sigma = 0.0025;
+obvs_sigma = 0.025;
 
 % Particle weights (pass threse through instead)
 w = (ones(1,n_ens)/n_ens)
@@ -25,26 +27,36 @@ for t_id = 1:(length(time_steps))
     end
     X_prediction(:,t_id) = xhk;
 
+
     % Get observations from prior trajectory with observation errors added
     Y_t = squeeze(X_obvs_ens(:,t_id,:)); 
-
-
-    % Caclulate difference factor and update
-    d =  0.1 * (Y_t - H * X_ens_b);    
+    
+    for k = 1:n_ens
+        % Caclulate difference between observation and particles
+        d =  norm((Y_t(:,:) - H * X_ens_b(:,k)),2);    
+        alpha = (1/((2*pi*obvs_sigma).^(5/2))).* exp(-d.^2/(2*obvs_sigma.^2));
+        w(k) = w(k) * alpha;
+    end
 
     % Calculate P(yk|xk)
-    prob_placeholder = mvnpdf(d.',0, obvs_sigma*eye(20)).';
+    %prob_placeholder = mvnpdf(d.',0, obvs_sigma*eye(2)).';
     
     % Rescale weights
-    w = prob_placeholder .* w;
+    %w = prob_placeholder .* w;
     w = w./sum(w);
     
+    % Apply threshold value
+    w = max(1e-10, w);
+    w = w./sum(w);
+
     % Calculate number of effective particles
     n_eff = 1/sum(w.^2)
 
+
+
     % Resample if effective particles is below threshold
     % TODO (tune this value)
-    resample_threshold = 250;
+    resample_threshold = 100;
     if n_eff < resample_threshold
 
         disp("Reampling!")
@@ -77,7 +89,7 @@ for t_id = 1:(length(time_steps))
 
         end
         % Adding noise such that it is stochastic
-        X_ens_b = X_ens_b + normrnd(0,0.0025,size(X_ens_b));
+        X_ens_b = X_ens_b + normrnd(0,0.0005,size(X_ens_b));
     end
 
     

@@ -1,4 +1,0 @@
-classdef OregonatorParameters
-    %OREGONATORPARAMETERS
-end
-

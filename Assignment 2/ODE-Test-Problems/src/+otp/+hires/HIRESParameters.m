@@ -1,4 +1,0 @@
-classdef HIRESParameters
-    %HIRESPARAMETERS
-end
-

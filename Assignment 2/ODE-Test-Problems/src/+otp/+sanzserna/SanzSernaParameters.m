@@ -1,2 +1,0 @@
-classdef SanzSernaParameters
-end

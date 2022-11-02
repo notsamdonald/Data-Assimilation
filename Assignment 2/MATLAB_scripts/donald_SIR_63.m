@@ -1,4 +1,4 @@
-function [X_ens_array_b] = donald_SIR(m, X_ens_b, X_obvs_ens, X_ref, H, time_steps, n_states, n_ens, plot)
+function [X_ens_array_b] = donald_SIR_63(m, X_ens_b, X_obvs_ens, X_ref, H, time_steps, n_states, n_ens, plot)
 % EnKF with option covariance localization/inflation
 % Able to generate RMSE/Rank histograms based on resultant analysis
 % ensemble
@@ -6,7 +6,7 @@ function [X_ens_array_b] = donald_SIR(m, X_ens_b, X_obvs_ens, X_ref, H, time_ste
 % Used for plotting
 title_info = "SIR";
 
-obvs_sigma = 0.0025;
+obvs_sigma = 0.025;
 
 % Particle weights (pass threse through instead)
 w = (ones(1,n_ens)/n_ens)
@@ -25,15 +25,15 @@ for t_id = 1:(length(time_steps))
     end
     X_prediction(:,t_id) = xhk;
 
+
     % Get observations from prior trajectory with observation errors added
     Y_t = squeeze(X_obvs_ens(:,t_id,:)); 
 
-
-    % Caclulate difference factor and update
-    d =  0.1 * (Y_t - H * X_ens_b);    
+    % Caclulate difference between observation and particles
+    d =  (Y_t - H * X_ens_b);    
 
     % Calculate P(yk|xk)
-    prob_placeholder = mvnpdf(d.',0, obvs_sigma*eye(20)).';
+    prob_placeholder = mvnpdf(d.',0, obvs_sigma*eye(2)).';
     
     % Rescale weights
     w = prob_placeholder .* w;
