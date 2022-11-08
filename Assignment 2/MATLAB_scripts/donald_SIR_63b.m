@@ -19,21 +19,25 @@ X_ens_array_a = zeros(n_states, n_ens, length(time_steps));
 X_prediction = zeros(n_states, length(time_steps))
 
 for t_id = 1:(length(time_steps))
-    
+    time_steps(t_id)
     %% Compute estimated state
     xhk = zeros(n_states,1);
     for i = 1:n_ens;
        xhk = xhk + w(i)*X_ens_b(:,i);
     end
     X_prediction(:,t_id) = xhk;
+    mean(abs(X_prediction(:, t_id)-X_ref(:, t_id)),1)
 
 
     % Get observations from prior trajectory with observation errors added
-    Y_t = squeeze(X_obvs_ens(:,t_id,:)); 
-    
+    Y_t = X_obvs_ens(:,t_id,:); 
+    obvs_size = size(Y_t);
+    Y_t = reshape(Y_t, [obvs_size(1), obvs_size(3)]);
+
+
     for k = 1:n_ens
         % Caclulate difference between observation and particles
-        d =  norm((Y_t(:,:) - H * X_ens_b(:,k)),2);    
+        d =  norm((Y_t(:,k) - H * X_ens_b(:,k)),2);    
         alpha = (1/((2*pi*obvs_sigma).^(5/2))).* exp(-d.^2/(2*obvs_sigma.^2));
         w(k) = w(k) * alpha;
     end
@@ -50,13 +54,13 @@ for t_id = 1:(length(time_steps))
     w = w./sum(w);
 
     % Calculate number of effective particles
-    n_eff = 1/sum(w.^2)
+    n_eff = 1/sum(w.^2);
 
 
 
     % Resample if effective particles is below threshold
     % TODO (tune this value)
-    resample_threshold = 100;
+    resample_threshold = 250;
     if n_eff < resample_threshold
 
         disp("Reampling!")

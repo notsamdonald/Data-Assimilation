@@ -1,4 +1,4 @@
-function [X_ens_array_b] = donald_SIR_63b(m, X_ens_b, X_obvs_ens, X_ref, H, time_steps, n_states, n_ens, plot)
+function [X_prediction] = donald_SIR_63b(m, X_ens_b, X_obvs_ens, X_ref, H, time_steps, n_states, n_ens, plot)
 % EnKF with option covariance localization/inflation
 % Able to generate RMSE/Rank histograms based on resultant analysis
 % ensemble
@@ -26,25 +26,35 @@ for t_id = 1:(length(time_steps))
        xhk = xhk + w(i)*X_ens_b(:,i);
     end
     X_prediction(:,t_id) = xhk;
+    mean(abs(X_prediction(:, t_id)-X_ref(:, t_id)),1)
 
 
     % Get observations from prior trajectory with observation errors added
+    obvs_size = size(X_obvs_ens)
     Y_t = squeeze(X_obvs_ens(:,t_id,:)); 
     
-    % Caclulate difference between observation and particles
-    d =  norm((Y_t(:,1) - H * X_ens_b(:,20)),2);    
-    test_alpha = (1/((2*pi*obvs_sigma).^(50/2))).* exp(-d/(2*obvs_sigma.^2));
-
+    for k = 1:n_ens
+        % Caclulate difference between observation and particles
+        d =  norm((Y_t(:,k) - H * X_ens_b(:,k)),2);    
+        alpha = (1/((2*pi*obvs_sigma).^(5/2))).* exp(-d.^2/(2*obvs_sigma.^2));
+        w(k) = w(k) * alpha;
+    end
 
     % Calculate P(yk|xk)
-    prob_placeholder = mvnpdf(d.',0, obvs_sigma*eye(2)).';
+    %prob_placeholder = mvnpdf(d.',0, obvs_sigma*eye(2)).';
     
     % Rescale weights
-    w = prob_placeholder .* w;
+    %w = prob_placeholder .* w;
     w = w./sum(w);
     
+    % Apply threshold value
+    w = max(1e-10, w);
+    w = w./sum(w);
+
     % Calculate number of effective particles
     n_eff = 1/sum(w.^2)
+
+
 
     % Resample if effective particles is below threshold
     % TODO (tune this value)
@@ -81,7 +91,7 @@ for t_id = 1:(length(time_steps))
 
         end
         % Adding noise such that it is stochastic
-        X_ens_b = X_ens_b + normrnd(0,0.0025,size(X_ens_b));
+        X_ens_b = X_ens_b + normrnd(0,0.0005,size(X_ens_b));
     end
 
     

@@ -19,7 +19,8 @@ X_ens_array_a = zeros(n_states, n_ens, length(time_steps));
 X_prediction = zeros(n_states, length(time_steps))
 
 for t_id = 1:(length(time_steps))
- 
+     time_steps(t_id)
+
     % Compute estimated state
     xhk = zeros(n_states,1);
     for i = 1:n_ens;
@@ -27,17 +28,19 @@ for t_id = 1:(length(time_steps))
     end
     X_prediction(:,t_id) = xhk;
 
+    mean(abs(X_prediction(:, t_id)-X_ref(:, t_id)),1)
 
     % Get observations from prior trajectory with observation errors added
-    Y_t = squeeze(X_obvs_ens(:,t_id,:)); 
-    
+    Y_t = X_obvs_ens(:,t_id,:); 
+    obvs_size = size(Y_t);
+    Y_t = reshape(Y_t, [obvs_size(1), obvs_size(3)]);    
 
 
 
     % Kalman section
     % Emperical ensemble covariance
     B = cov(X_ens_b.');
-    R = obvs_sigma.^2 * eye(2);  % TODO move this out
+    R = obvs_sigma.^2 * eye(obvs_size(1));  % TODO move this out
     Q = obvs_sigma.^2 * eye(3)./10; % Model error (placeholder)
     % Kalman gain
     K_t = B * H.' * inv(H * B * H.' + R);  
@@ -46,11 +49,11 @@ for t_id = 1:(length(time_steps))
 
     A = (eye(3) - (K_t*H));
     Q_enkf = A * Q * A.' + K_t * R * K_t.';
-    x_q_enkf = X_ens_b + K_t * (mean(Y_t, 2) - H * (X_ens_b));
+    x_q_enkf = X_ens_b + K_t * (Y_t - H * X_ens_b);
 
     for k = 1:n_ens
 
-    x_mean_enkf = mean(A * X_ens_b(:,k) + K_t * Y_t, 2); % Not sure about mean (accounts for multiple observations?)
+    x_mean_enkf = A * X_ens_b(:,k) + K_t * Y_t(:,k); % Not sure about mean (accounts for multiple observations?)
         
     % Draw
     %x_q_enkf = mvnrnd(x_mean_enkf, Q_enkf).';
@@ -79,7 +82,7 @@ for t_id = 1:(length(time_steps))
 
 
     % Calculate number of effective particles
-    n_eff = 1/sum(w.^2)
+    n_eff = 1/sum(w.^2);
 
     % Apply threshold value
     w = max(1e-16, w);
@@ -87,7 +90,7 @@ for t_id = 1:(length(time_steps))
 
     % Resample if effective particles is below threshold
     % TODO (tune this value)
-    resample_threshold = 100;
+    resample_threshold = 250;
     if n_eff < resample_threshold
 
         disp("Reampling!")
