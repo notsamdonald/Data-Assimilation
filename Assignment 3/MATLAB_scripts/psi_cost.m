@@ -6,6 +6,7 @@ t2 = zeros(1);
 for i = 1:1:size(X,2)
     t2 = t2 + (H*X(:,i)-X_obvs(:,i))' * inv(R) * (H*X(:,i)-X_obvs(:,i));
 end
-cost = 0.5 * (X(:,1)-xb)' * inv(B0) * (X(:,1)-xb) + t2;
+cost = 0.5 * (X(:,1)-xb)' * inv(B0) * (X(:,1)-xb) + 0.5 * t2;
+%cost = t2;
 end
 
